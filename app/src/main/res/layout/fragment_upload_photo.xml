@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/documentAddName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/btnMakePhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:text="TAKE PHOTO" />
+
+        <RadioGroup
+            android:id="@+id/typeRadio"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="CODE" />
+
+            <RadioButton
+                android:id="@+id/file"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="FILE" />
+
+            <RadioButton
+                android:id="@+id/bill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="BILL" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnUploadPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UPLOAD PHOTO" />
+
+        <ImageView
+            android:id="@+id/uploadedImage"
+            android:layout_width="400dp"
+            android:layout_height="600dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/camera" />
+
+    </LinearLayout>
+
+</FrameLayout>
