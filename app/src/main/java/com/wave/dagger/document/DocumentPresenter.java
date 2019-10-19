@@ -3,8 +3,7 @@ package com.wave.dagger.document;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.wave.dagger.R;
-import com.wave.dagger.login.LoginActivity;
+import com.wave.dagger.document.documentupload.UploadPhotoFragment;
 import com.wave.dagger.model.Document;
 
 import java.util.List;

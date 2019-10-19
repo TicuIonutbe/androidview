@@ -1,8 +1,8 @@
 package com.wave.dagger.document;
 
+import com.wave.dagger.document.documentupload.UploadPhotoFragment;
 import com.wave.dagger.model.Document;
 
-import java.io.File;
 import java.util.List;
 
 public interface DocumentMVP {
@@ -13,7 +13,7 @@ public interface DocumentMVP {
     interface Presenter {
 
         void uploadDocument(String fileNamem,String fileType);
-        public void setUploadPhotoFragment(UploadPhotoFragment uploadPhotoFragment);
+        void setUploadPhotoFragment(UploadPhotoFragment uploadPhotoFragment);
     }
 
     interface Model {

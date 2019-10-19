@@ -2,7 +2,6 @@ package com.wave.dagger.mainpage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,9 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.wave.dagger.BuildConfig;
 import com.wave.dagger.R;
-import com.wave.dagger.login.LoginActivity;
+import com.wave.dagger.root.LoginActivity;
 import com.wave.dagger.login.LoginFragment;
 import com.wave.dagger.model.Member;
 import com.wave.dagger.service.AuthorizationService;

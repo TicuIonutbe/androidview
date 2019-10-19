@@ -5,23 +5,23 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
 
-import com.wave.dagger.CardsAndFilesAPI.CardsAndFilesInterface;
 import com.wave.dagger.R;
 import com.wave.dagger.mainpage.MainFragment;
 import com.wave.dagger.model.JwtRequest;
 import com.wave.dagger.model.JwtResponse;
 import com.wave.dagger.model.Member;
+import com.wave.dagger.root.LoginActivity;
 import com.wave.dagger.service.AuthorizationService;
 
 import javax.inject.Inject;
 
 public class LoginPresenter implements LoginMVP.Presenter, LoginMVP.Model.OnFinishedListener {
 
-    LoginFragment loginFragment;
+    private LoginFragment loginFragment;
 
-    LoginModel loginModel;
+    private LoginModel loginModel;
 
-    AuthorizationService authorizationService;
+    private AuthorizationService authorizationService;
 
     @Inject
     public LoginPresenter(LoginModel loginModel, AuthorizationService authorizationService) {
@@ -35,7 +35,7 @@ public class LoginPresenter implements LoginMVP.Presenter, LoginMVP.Model.OnFini
         String email = loginFragment.getEmail();
         String password = loginFragment.getPassword();
         if (email.equals("") || password.equals("")) {
-            Toast.makeText(((LoginFragment) loginFragment).getActivity().getApplicationContext(), "Fill up the fields!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(loginFragment.getActivity().getApplicationContext(), "Fill up the fields!", Toast.LENGTH_SHORT).show();
         } else {
             loginModel.getToken(new JwtRequest(email, password), this);
         }
@@ -69,7 +69,7 @@ public class LoginPresenter implements LoginMVP.Presenter, LoginMVP.Model.OnFini
     //and changes Login fragment to MainPage Fragment
     @Override
     public void onMemberResponse(Member member) {
-        FragmentManager fm = ((LoginFragment) loginFragment).getActivity().getSupportFragmentManager();
+        FragmentManager fm = loginFragment.getActivity().getSupportFragmentManager();
         MainFragment mainFragment = new MainFragment(member);
 
         mainFragment.setLoginActivity((LoginActivity) loginFragment.getActivity());
@@ -81,7 +81,7 @@ public class LoginPresenter implements LoginMVP.Presenter, LoginMVP.Model.OnFini
 
     @Override
     public void onRegisterResponse(String answer) {
-        Toast.makeText((LoginActivity) loginFragment.getActivity(), "Registration was completed, now u can use the back button to login!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(loginFragment.getActivity(), "Registration was completed, now u can use the back button to login!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

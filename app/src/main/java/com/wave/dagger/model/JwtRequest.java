@@ -3,6 +3,8 @@ package com.wave.dagger.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
+//Class used to send http request with user and password
 public class JwtRequest {
 
     private static final long serialVersionUID = 5926468583005150707L;

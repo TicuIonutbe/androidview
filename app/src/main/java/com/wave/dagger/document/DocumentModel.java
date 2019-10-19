@@ -3,7 +3,7 @@ package com.wave.dagger.document;
 import android.graphics.Bitmap;
 
 import com.wave.dagger.CardsAndFilesAPI.CardsAndFilesInterface;
-import com.wave.dagger.login.LoginActivity;
+import com.wave.dagger.root.LoginActivity;
 import com.wave.dagger.model.Document;
 import com.wave.dagger.service.AuthorizationService;
 
@@ -27,7 +27,7 @@ import retrofit2.Retrofit;
 public class DocumentModel implements DocumentMVP.Model {
 
     private Retrofit retrofit;
-    AuthorizationService authorizationService;
+    private AuthorizationService authorizationService;
     private String token;
 
     @Inject
@@ -74,11 +74,7 @@ public class DocumentModel implements DocumentMVP.Model {
         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
         // Create MultipartBody.Part using file request-body,file name and part name
         MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), fileReqBody);
-
-        //Create request body with text description and text media type
-        RequestBody description = RequestBody.create(MediaType.parse("text/plain"), "image-type");
-
-        Call<String> call = service.uploadDocument(token, part, fileName, fileType);
+          Call<String> call = service.uploadDocument(token, part, fileName, fileType);
 
         call.enqueue(new Callback<String>() {
             @Override

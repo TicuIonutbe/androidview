@@ -2,18 +2,15 @@ package com.wave.dagger.mainpage;
 
 import android.content.SharedPreferences;
 
-import com.wave.dagger.login.LoginActivity;
-import com.wave.dagger.login.LoginMVP;
+import com.wave.dagger.root.LoginActivity;
 import com.wave.dagger.model.Member;
-
-import okhttp3.ResponseBody;
 
 public interface MainMVPContract {
 
     interface View {
-        public void setLoginActivity(LoginActivity loginActivity);
-        public void setPrefs(SharedPreferences prefs);
-        public void updateView(Member member);
+        void setLoginActivity(LoginActivity loginActivity);
+        void setPrefs(SharedPreferences prefs);
+        void updateView(Member member);
     }
 
     interface Presenter {

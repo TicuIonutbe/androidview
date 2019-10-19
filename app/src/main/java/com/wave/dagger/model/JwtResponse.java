@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+//class used to receive the validated token after login request has been sent.
 public class JwtResponse implements Serializable {
 
     private static final long serialVersionUID = -8091879091924046844L;

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.wave.dagger.BuildConfig;
-import com.wave.dagger.login.LoginActivity;
 import com.wave.dagger.login.LoginMVP;
 import com.wave.dagger.login.LoginModel;
 import com.wave.dagger.login.LoginPresenter;
@@ -17,8 +16,8 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 
 @Module
-public class LoginModule {
-    static final String APP_NAME = BuildConfig.APPLICATION_ID;
+class LoginModule {
+    private static final String APP_NAME = BuildConfig.APPLICATION_ID;
 
     @Provides
     @Singleton
@@ -42,8 +41,7 @@ public class LoginModule {
     @Provides
     @Singleton
     static SharedPreferences provideSharedPrefs(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(APP_NAME, Context.MODE_PRIVATE);
-        return prefs;
+        return context.getSharedPreferences(APP_NAME, Context.MODE_PRIVATE);
     }
 
 }

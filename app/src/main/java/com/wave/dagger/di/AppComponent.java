@@ -3,8 +3,6 @@ package com.wave.dagger.di;
 import android.app.Application;
 import android.content.Context;
 
-import com.wave.dagger.login.LoginActivity;
-
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;

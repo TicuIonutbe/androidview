@@ -1,4 +1,4 @@
-package com.wave.dagger.mainpage;
+package com.wave.dagger.mainpage.updatemember;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,7 +13,8 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.wave.dagger.R;
-import com.wave.dagger.login.LoginActivity;
+import com.wave.dagger.mainpage.MainMVPContract;
+import com.wave.dagger.root.LoginActivity;
 
 import javax.inject.Inject;
 
@@ -25,7 +26,7 @@ public class UpdateMemberFragment extends Fragment implements View.OnClickListen
     private Button btnConfirmUpdateProfile;
 
     @Inject
-    MainMVPContract.Presenter mainPresenter;
+    private MainMVPContract.Presenter mainPresenter;
 
     public UpdateMemberFragment() {
         // Required empty public constructor

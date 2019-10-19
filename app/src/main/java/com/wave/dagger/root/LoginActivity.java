@@ -1,10 +1,9 @@
-package com.wave.dagger.login;
+package com.wave.dagger.root;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -16,19 +15,20 @@ import androidx.fragment.app.FragmentManager;
 
 import com.wave.dagger.R;
 import com.wave.dagger.document.DocumentFragment;
-import com.wave.dagger.document.UploadPhotoFragment;
+import com.wave.dagger.document.documentupload.UploadPhotoFragment;
 import com.wave.dagger.friendship.FriendshipFragment;
+import com.wave.dagger.login.LoginFragment;
+import com.wave.dagger.login.LoginMVP;
 import com.wave.dagger.mainpage.MainFragment;
 import com.wave.dagger.mainpage.MainMVPContract;
-import com.wave.dagger.mainpage.UpdateMemberFragment;
+import com.wave.dagger.mainpage.updatemember.UpdateMemberFragment;
 import com.wave.dagger.model.Member;
 import com.wave.dagger.service.AuthServiceInterface;
 import com.wave.dagger.service.AuthorizationService;
+import com.wave.dagger.service.FileImageService;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -117,22 +117,8 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
         dispatchTakePictureIntent();
     }
 
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
 
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
-
+    //dispatch an intent to create a photo for result.
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -140,7 +126,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
             // Create the File where the photo should go
             File photoFile = null;
             try {
-                photoFile = createImageFile();
+                photoFile = FileImageService.getFileImageService(this).createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
                 Log.e("IO", "error occured while creating file");
@@ -155,25 +141,22 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
             }
         }
     }
-
+    //@@After photo has been made dispatchTakePictureIntent();
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         try {
-            switch (requestCode) {
-                case 1: {
-                    if (resultCode == RESULT_OK) {
-                        File file = new File(mCurrentPhotoPath);
-                        Bitmap bitmap = MediaStore.Images.Media
-                                .getBitmap(this.getContentResolver(), Uri.fromFile(file));
-                        if (bitmap != null) {
-                            bitMapToSend = bitmap;
-                            Bitmap currentbitmap = bitmap;
-                            currentbitmap = resize(currentbitmap, 400, 600);
-                            ((ImageView) findViewById(R.id.uploadedImage)).setImageBitmap(currentbitmap);
-                        }
+            if (requestCode == 1) {
+                if (resultCode == RESULT_OK) {
+                    File file = new File(mCurrentPhotoPath);
+                    Bitmap bitmap = MediaStore.Images.Media
+                            .getBitmap(this.getContentResolver(), Uri.fromFile(file));
+                    if (bitmap != null) {
+                        bitMapToSend = bitmap;
+                        Bitmap currentbitmap = bitmap;
+                        currentbitmap = FileImageService.getFileImageService(this).resize(currentbitmap, 400, 600);
+                        ((ImageView) findViewById(R.id.uploadedImage)).setImageBitmap(currentbitmap);
                     }
-                    break;
                 }
             }
 
@@ -182,26 +165,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
         }
     }
 
-    public static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
-        if (maxHeight > 0 && maxWidth > 0) {
-            int width = image.getWidth();
-            int height = image.getHeight();
-            float ratioBitmap = (float) width / (float) height;
-            float ratioMax = (float) maxWidth / (float) maxHeight;
 
-            int finalWidth = maxWidth;
-            int finalHeight = maxHeight;
-            if (ratioMax > ratioBitmap) {
-                finalWidth = (int) ((float) maxHeight * ratioBitmap);
-            } else {
-                finalHeight = (int) ((float) maxWidth / ratioBitmap);
-            }
-            image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
-            return image;
-        } else {
-            return image;
-        }
-    }
 
     public Bitmap getBitMapToSend() {
         return bitMapToSend;
