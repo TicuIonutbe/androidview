@@ -30,7 +30,7 @@ public interface CardsAndFilesInterface {
         Call<List<Document>> getDocuments(@Header("Authorization") String authorization);
 
         @POST("members/documents")
-        Call<String> sendDocumentOnEmail(@Header("Authorization") String authorization, @Header("documentId") int documentId);
+        Call<String> sendDocumentOnEmail(@Header("Authorization") String authorization, @Header("documentId") int documentId,@Header("toEmail") String toEmail);
 
         @Multipart
         @POST("members/documents")

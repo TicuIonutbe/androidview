@@ -1,6 +1,9 @@
 package com.wave.dagger.root;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,7 +11,9 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -42,13 +47,16 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
     @Inject
     AuthorizationService authorizationService;
 
-    Member member;
+    private static Context context;
+
+    private static Member member;
 
     FragmentManager fm;
     public static String mCurrentPhotoPath;
     static final int REQUEST_TAKE_PHOTO = 1;
     public static Bitmap bitMapToSend;
     public static Uri pathToSend;
+    public static boolean pictureMade;
 
 
     @Override
@@ -62,6 +70,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
             onFailure(new Throwable("Token was not present, so we initiate the Login Fragment."));
         }
 
+        context = this;
 
     }
 
@@ -94,7 +103,16 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
     }
 
     public void onMyDocumentsPressed(View view) {
-        changeFragment(new DocumentFragment());
+        ActivityCompat.requestPermissions((LoginActivity)LoginActivity.getContext(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
+        if (LoginActivity.getContext().checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            Log.v("WRITE PERM","Permission is granted");
+            //File write logic here
+            changeFragment(new DocumentFragment());
+        } else {
+            Toast.makeText(context, "Permission is required for Documents", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     public void onFastUploadPressed(View view) {
@@ -105,7 +123,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
         changeFragment(new FriendshipFragment());
     }
 
-    public Member getMember() {
+    public static Member getMember() {
         return member;
     }
 
@@ -141,7 +159,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
             }
         }
     }
-    //@@After photo has been made dispatchTakePictureIntent();
+    //@@After photo has been made this happens;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -155,6 +173,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
                         bitMapToSend = bitmap;
                         Bitmap currentbitmap = bitmap;
                         currentbitmap = FileImageService.getFileImageService(this).resize(currentbitmap, 400, 600);
+                        pictureMade = true;
                         ((ImageView) findViewById(R.id.uploadedImage)).setImageBitmap(currentbitmap);
                     }
                 }
@@ -176,7 +195,12 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
     }
 
 
+    public static Context getContext() {
+        return context;
+    }
 
-
+    public static void setContext(Context context) {
+        LoginActivity.context = context;
+    }
 }
 

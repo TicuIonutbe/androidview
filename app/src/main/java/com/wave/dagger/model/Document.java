@@ -1,5 +1,7 @@
 package com.wave.dagger.model;
 
+import android.graphics.Bitmap;
+
 public class Document {
 
     private int Id;
@@ -14,6 +16,8 @@ public class Document {
     private boolean visibility;
 
     private String path;
+
+    private Bitmap bitmap;
 
     public Document() {
     }
@@ -73,6 +77,14 @@ public class Document {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     @Override

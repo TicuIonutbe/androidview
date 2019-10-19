@@ -6,6 +6,7 @@ import com.wave.dagger.CardsAndFilesAPI.CardsAndFilesInterface;
 import com.wave.dagger.root.LoginActivity;
 import com.wave.dagger.model.Document;
 import com.wave.dagger.service.AuthorizationService;
+import com.wave.dagger.service.FileImageService;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -39,7 +40,24 @@ public class DocumentModel implements DocumentMVP.Model {
 
 
     @Override
-    public void deleteDocument(int documentId, DocumentListener documentListener) {
+    public void deleteDocument(final Document currentDocument, final DocumentListener documentListener) {
+        CardsAndFilesInterface.DocumentAPI service = retrofit.create(CardsAndFilesInterface.DocumentAPI.class);
+        Call<String> call = service.deleteDocument("Bearer " + authorizationService.getTokenFromPrefs(), currentDocument.getId());
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.code() == 200) {
+                    documentListener.onDeleteDocument(response.body());
+                    FileImageService.deleteFile(currentDocument.getPath().substring(27));
+                    LoginActivity.getMember().getDocumentList().remove(currentDocument);
+                } else {documentListener.onFailure("Something went wrong, try again later!");}
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                    documentListener.onFailure("Server is not disponible, try again later!");
+            }
+        });
 
     }
 
@@ -74,7 +92,7 @@ public class DocumentModel implements DocumentMVP.Model {
         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
         // Create MultipartBody.Part using file request-body,file name and part name
         MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), fileReqBody);
-          Call<String> call = service.uploadDocument(token, part, fileName, fileType);
+        Call<String> call = service.uploadDocument(token, part, fileName, fileType);
 
         call.enqueue(new Callback<String>() {
             @Override

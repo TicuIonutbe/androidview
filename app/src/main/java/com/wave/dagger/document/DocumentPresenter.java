@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.wave.dagger.document.documentupload.UploadPhotoFragment;
 import com.wave.dagger.model.Document;
+import com.wave.dagger.root.LoginActivity;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class DocumentPresenter implements DocumentMVP.Presenter, DocumentMVP.Mod
 
     private UploadPhotoFragment uploadPhotoFragment;
     private DocumentModel documentModel;
+    private DocumentFragment documentFragment;
 
     @Inject
     public DocumentPresenter(DocumentModel documentModel) {
@@ -22,7 +24,8 @@ public class DocumentPresenter implements DocumentMVP.Presenter, DocumentMVP.Mod
 
     @Override
     public void onDeleteDocument(String deleteResponse) {
-
+            Toast.makeText(LoginActivity.getContext(),deleteResponse,Toast.LENGTH_SHORT).show();
+            documentFragment.restartFragment();
     }
 
     @Override
@@ -39,6 +42,7 @@ public class DocumentPresenter implements DocumentMVP.Presenter, DocumentMVP.Mod
     public void onUploadDocument(String answer) {
         Toast.makeText(uploadPhotoFragment.getActivity(), "Document uploaded with success!", Toast.LENGTH_SHORT).show();
         uploadPhotoFragment.startActivity(Intent.makeRestartActivityTask(uploadPhotoFragment.getActivity().getIntent().getComponent()));
+        LoginActivity.pictureMade = false;
     }
 
     @Override
@@ -63,5 +67,15 @@ public class DocumentPresenter implements DocumentMVP.Presenter, DocumentMVP.Mod
     @Override
     public void setUploadPhotoFragment(UploadPhotoFragment uploadPhotoFragment) {
         this.uploadPhotoFragment = uploadPhotoFragment;
+    }
+
+    @Override
+    public void deleteDocument(Document currentDoc) {
+        documentModel.deleteDocument(currentDoc,this);
+    }
+
+    @Override
+    public void setDocumentFragment(DocumentFragment documentFragment) {
+        this.documentFragment = documentFragment;
     }
 }

@@ -26,7 +26,7 @@ public class UpdateMemberFragment extends Fragment implements View.OnClickListen
     private Button btnConfirmUpdateProfile;
 
     @Inject
-    private MainMVPContract.Presenter mainPresenter;
+    public MainMVPContract.Presenter mainPresenter;
 
     public UpdateMemberFragment() {
         // Required empty public constructor

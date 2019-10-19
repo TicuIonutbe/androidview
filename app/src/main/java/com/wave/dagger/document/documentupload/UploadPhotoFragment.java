@@ -78,7 +78,7 @@ public class UploadPhotoFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if (v == btnUploadPhoto) {
-            if (fileName.getText().toString().length() > 1) {
+            if (fileName.getText().toString().length() > 1 && LoginActivity.pictureMade == true) {
                 int selectedId = radioGroup.getCheckedRadioButtonId();
 
                 // find the radiobutton by returned id

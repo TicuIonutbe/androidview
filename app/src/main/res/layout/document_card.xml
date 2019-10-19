@@ -2,15 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="390dp"
-    android:layout_height="200dp"
+    android:layout_height="300dp"
     android:layout_marginLeft="10dp"
     android:layout_marginTop="10dp"
     android:layout_marginRight="10dp"
     android:background="@color/colorPrimaryDark">
 
 
-    <include
-        layout="@layout/document_name"/>
+    <include layout="@layout/document_name" />
 
     <TextView
         android:id="@+id/documentId"
@@ -35,13 +34,15 @@
         android:id="@+id/documentLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="13dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="4dp"
         android:text="View this image full size!"
         android:textColor="@color/colorAccent"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/documentVisibility"
@@ -54,12 +55,24 @@
 
     <ImageView
         android:id="@+id/documentSmallImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="140dp"
+        android:layout_height="150dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="13dp"
-        android:layout_marginBottom="55dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="5dp"
         app:srcCompat="@drawable/camera" />
+
+    <TextView
+        android:id="@+id/documentDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="215dp"
+        android:text="Delete Document!!"
+        android:textColor="#FF0000"
+        android:textSize="18sp" />
 </RelativeLayout>

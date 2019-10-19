@@ -14,6 +14,8 @@ public interface DocumentMVP {
 
         void uploadDocument(String fileNamem,String fileType);
         void setUploadPhotoFragment(UploadPhotoFragment uploadPhotoFragment);
+         void setDocumentFragment(DocumentFragment documentFragment);
+        void deleteDocument(Document currentDoc);
     }
 
     interface Model {
@@ -28,7 +30,7 @@ public interface DocumentMVP {
             void onFailure(String answer);
         }
 
-        void deleteDocument(int documentId, DocumentListener documentListener);
+        void deleteDocument(Document currentDocument, DocumentListener documentListener);
 
         void getDocuments();
 
