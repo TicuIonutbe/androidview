@@ -82,7 +82,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
         this.member = member;
         fragment.setPrefs(authorizationService.getPrefs());
 
-        fm.beginTransaction().add(R.id.fragment_container, (MainFragment) fragment).commitAllowingStateLoss();
+        fm.beginTransaction().replace(R.id.fragment_container, (MainFragment) fragment).commitAllowingStateLoss();
         Log.e("TAG", "Token is valid!: " + true);
     }
 
@@ -90,7 +90,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
     @Override
     public void onFailure(Throwable t) {
         Fragment fragment = new LoginFragment();
-        fm.beginTransaction().add(R.id.fragment_container, fragment).commitAllowingStateLoss();
+        fm.beginTransaction().replace(R.id.fragment_container, fragment).commitAllowingStateLoss();
         Log.e("TAG", t.toString());
     }
 
@@ -127,8 +127,8 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
         return member;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
+    public static void setMember(Member incMember) {
+        member = incMember;
     }
 
     public void openBackCamera() {

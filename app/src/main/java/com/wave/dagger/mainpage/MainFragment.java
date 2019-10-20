@@ -57,6 +57,8 @@ public class MainFragment extends Fragment implements View.OnClickListener, Main
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+        member = LoginActivity.getMember();
+        loginActivity = (LoginActivity) getActivity();
         logout = view.findViewById(R.id.btnLogout);
         logout.setOnClickListener(this);
         email = view.findViewById(R.id.mainEmail);
@@ -100,6 +102,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Main
             fm.beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commitAllowingStateLoss();
             prefs.edit().remove(AuthorizationService.TOKEN).apply();
             Log.e("LOGOUT INFO: ", "THE LOGOUT BUTTON WAS PRESSED!");
+            LoginActivity.setMember(null);
         } else if (v == getView().findViewById(R.id.btnDeleteProfile)) {
 
 

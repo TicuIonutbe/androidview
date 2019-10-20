@@ -70,7 +70,8 @@ public class LoginPresenter implements LoginMVP.Presenter, LoginMVP.Model.OnFini
     @Override
     public void onMemberResponse(Member member) {
         FragmentManager fm = loginFragment.getActivity().getSupportFragmentManager();
-        MainFragment mainFragment = new MainFragment(member);
+        LoginActivity.setMember(member);
+        MainFragment mainFragment = new MainFragment(LoginActivity.getMember());
 
         mainFragment.setLoginActivity((LoginActivity) loginFragment.getActivity());
 

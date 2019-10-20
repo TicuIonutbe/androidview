@@ -7,13 +7,13 @@ import com.wave.dagger.document.documentupload.UploadPhotoFragment;
 import com.wave.dagger.model.Document;
 import com.wave.dagger.root.LoginActivity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 public class DocumentPresenter implements DocumentMVP.Presenter, DocumentMVP.Model.DocumentListener {
-
-    private UploadPhotoFragment uploadPhotoFragment;
+    @Inject
+    public UploadPhotoFragment uploadPhotoFragment;
     private DocumentModel documentModel;
     private DocumentFragment documentFragment;
 
@@ -29,7 +29,9 @@ public class DocumentPresenter implements DocumentMVP.Presenter, DocumentMVP.Mod
     }
 
     @Override
-    public void onGetDocuments(List<Document> listDocuments) {
+    public void onGetDocuments(ArrayList<Document> listDocuments) {
+        LoginActivity.getMember().setDocumentList(listDocuments);
+        documentFragment.updateView();
 
     }
 
@@ -52,7 +54,12 @@ public class DocumentPresenter implements DocumentMVP.Presenter, DocumentMVP.Mod
 
     @Override
     public void onFailure(String answer) {
-        Toast.makeText(uploadPhotoFragment.getActivity(), answer, Toast.LENGTH_SHORT).show();
+        Toast.makeText(documentFragment.getActivity(), answer, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void sendDocumentOnEmail(String email, Document doc) {
+        documentModel.sendDocumentOnEmail(doc,email,this);
     }
 
     @Override
@@ -72,6 +79,12 @@ public class DocumentPresenter implements DocumentMVP.Presenter, DocumentMVP.Mod
     @Override
     public void deleteDocument(Document currentDoc) {
         documentModel.deleteDocument(currentDoc,this);
+    }
+
+    @Override
+    public void getUpdatedDocumentListToMember() {
+       documentModel.getUpdatedDocumentListToMember(this);
+
     }
 
     @Override

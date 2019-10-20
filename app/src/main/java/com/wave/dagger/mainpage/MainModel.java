@@ -1,15 +1,9 @@
 package com.wave.dagger.mainpage;
 
-import android.os.Environment;
-import android.util.Log;
-
 import com.wave.dagger.CardsAndFilesAPI.CardsAndFilesInterface;
-import com.wave.dagger.login.LoginMVP;
 import com.wave.dagger.model.Member;
 import com.wave.dagger.service.AuthorizationService;
 import com.wave.dagger.service.FileImageService;
-
-import java.io.File;
 
 import javax.inject.Inject;
 

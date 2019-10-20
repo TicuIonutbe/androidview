@@ -18,15 +18,15 @@ import com.wave.dagger.service.FileImageService;
 import com.wave.dagger.service.ImageFromNetwork;
 
 import java.io.File;
-import java.util.List;
+import java.util.ArrayList;
 
 public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.MyViewHolder> {
-    private List<Document> documentList;
+    private ArrayList<Document> documentList;
     private ImageFromNetwork imageFromNetwork;
     private DocumentFragment documentFragment;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public DocumentAdapter(List<Document> documentList,DocumentFragment documentFragment) {
+    public DocumentAdapter(ArrayList<Document> documentList,DocumentFragment documentFragment) {
         this.documentList = documentList;
         this.documentFragment = documentFragment;
 
@@ -88,6 +88,13 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.MyView
             }
         });
 
+        holder.documentSendEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                documentFragment.dialogBuilder(currentDoc);
+            }
+        });
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -101,7 +108,8 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.MyView
     // you provide access to all the views for a data item in a view holder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView documentName, documentId, documentType, documentVisibility, documentDeleteLink, documentViewLink;
+        public TextView documentName, documentId, documentType, documentVisibility, documentDeleteLink, documentViewLink,
+        documentSendEmail;
         private ImageView documentImage;
 
         public MyViewHolder(RelativeLayout v) {
@@ -113,6 +121,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.MyView
             documentImage = v.findViewById(R.id.documentSmallImage);
             documentDeleteLink = v.findViewById(R.id.documentDelete);
             documentViewLink = v.findViewById(R.id.documentLink);
+            documentSendEmail = v.findViewById(R.id.documentEmailLink);
         }
     }
 }

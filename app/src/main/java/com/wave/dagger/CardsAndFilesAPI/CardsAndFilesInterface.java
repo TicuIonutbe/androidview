@@ -6,6 +6,7 @@ import com.wave.dagger.model.JwtRequest;
 import com.wave.dagger.model.JwtResponse;
 import com.wave.dagger.model.Member;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -27,9 +28,9 @@ public interface CardsAndFilesInterface {
         Call<String> deleteDocument(@Header("Authorization") String authorization, @Header("documentId") int documentId);
 
         @GET("members/documents")
-        Call<List<Document>> getDocuments(@Header("Authorization") String authorization);
+        Call<ArrayList<Document>> getDocuments(@Header("Authorization") String authorization);
 
-        @POST("members/documents")
+        @POST("members/documents/send")
         Call<String> sendDocumentOnEmail(@Header("Authorization") String authorization, @Header("documentId") int documentId,@Header("toEmail") String toEmail);
 
         @Multipart
