@@ -3,7 +3,8 @@ package com.wave.dagger.document;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.wave.dagger.document.documentupload.UploadPhotoFragment;
+import com.wave.dagger.document.documentfeatures.DocumentUpdateFragment;
+import com.wave.dagger.document.documentfeatures.UploadPhotoFragment;
 import com.wave.dagger.model.Document;
 import com.wave.dagger.root.LoginActivity;
 
@@ -16,6 +17,8 @@ public class DocumentPresenter implements DocumentMVP.Presenter, DocumentMVP.Mod
     public UploadPhotoFragment uploadPhotoFragment;
     private DocumentModel documentModel;
     private DocumentFragment documentFragment;
+
+    public DocumentUpdateFragment documentUpdateFragment;
 
     @Inject
     public DocumentPresenter(DocumentModel documentModel) {
@@ -37,7 +40,7 @@ public class DocumentPresenter implements DocumentMVP.Presenter, DocumentMVP.Mod
 
     @Override
     public void onSendDocumentOnEmail(String answer) {
-
+        Toast.makeText(uploadPhotoFragment.getActivity(), answer, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -49,7 +52,8 @@ public class DocumentPresenter implements DocumentMVP.Presenter, DocumentMVP.Mod
 
     @Override
     public void onUpdateDocument(String answer) {
-
+        Toast.makeText(documentFragment.getActivity(), answer, Toast.LENGTH_SHORT).show();
+        documentUpdateFragment.startActivity(Intent.makeRestartActivityTask(documentUpdateFragment.getActivity().getIntent().getComponent()));
     }
 
     @Override
@@ -77,6 +81,11 @@ public class DocumentPresenter implements DocumentMVP.Presenter, DocumentMVP.Mod
     }
 
     @Override
+    public void setDocumentUpdateFragment(DocumentUpdateFragment documentUpdateFragment) {
+        this.documentUpdateFragment = documentUpdateFragment;
+    }
+
+    @Override
     public void deleteDocument(Document currentDoc) {
         documentModel.deleteDocument(currentDoc,this);
     }
@@ -85,6 +94,11 @@ public class DocumentPresenter implements DocumentMVP.Presenter, DocumentMVP.Mod
     public void getUpdatedDocumentListToMember() {
        documentModel.getUpdatedDocumentListToMember(this);
 
+    }
+
+    @Override
+    public void updateDocument(Document document) {
+        documentModel.updateDocument(document, this);
     }
 
     @Override

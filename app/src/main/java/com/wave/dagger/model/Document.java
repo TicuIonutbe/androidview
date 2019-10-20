@@ -2,13 +2,17 @@ package com.wave.dagger.model;
 
 import android.graphics.Bitmap;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Document {
 
     private int Id;
 
 
     private String name;
-
+    @SerializedName("ownerId")
+    @Expose
     private Member ownerId;
 
     private String type;

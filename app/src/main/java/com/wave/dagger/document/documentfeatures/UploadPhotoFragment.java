@@ -1,4 +1,4 @@
-package com.wave.dagger.document.documentupload;
+package com.wave.dagger.document.documentfeatures;
 
 import android.content.Context;
 import android.os.Bundle;

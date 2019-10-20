@@ -153,7 +153,24 @@ public class DocumentModel implements DocumentMVP.Model {
     }
 
     @Override
-    public void updateDocument(Document document) {
+    public void updateDocument(Document document, final DocumentListener documentListener) {
+        CardsAndFilesInterface.DocumentAPI service = retrofit.create(CardsAndFilesInterface.DocumentAPI.class);
+        Call<String> call = service.updateDocument("Bearer " + authorizationService.getTokenFromPrefs(), document);
 
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.code() == 200) {
+                    documentListener.onUpdateDocument("Document was updated!");
+                } else {
+                    documentListener.onFailure("Something went wrong!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                documentListener.onFailure("Server is not available!");
+            }
+        });
     }
 }

@@ -1,7 +1,8 @@
 package com.wave.dagger.di;
 
 import com.wave.dagger.document.DocumentFragment;
-import com.wave.dagger.document.documentupload.UploadPhotoFragment;
+import com.wave.dagger.document.documentfeatures.DocumentUpdateFragment;
+import com.wave.dagger.document.documentfeatures.UploadPhotoFragment;
 import com.wave.dagger.root.LoginActivity;
 import com.wave.dagger.login.LoginFragment;
 import com.wave.dagger.mainpage.MainFragment;
@@ -30,5 +31,8 @@ abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector
     abstract DocumentFragment contributeDocumentFragment();
+
+    @ContributesAndroidInjector
+    abstract DocumentUpdateFragment contributeDocumentUpdateFragment();
 
 }

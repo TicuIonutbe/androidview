@@ -20,7 +20,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.wave.dagger.R;
 import com.wave.dagger.document.DocumentFragment;
-import com.wave.dagger.document.documentupload.UploadPhotoFragment;
+import com.wave.dagger.document.documentfeatures.UploadPhotoFragment;
 import com.wave.dagger.friendship.FriendshipFragment;
 import com.wave.dagger.login.LoginFragment;
 import com.wave.dagger.login.LoginMVP;
@@ -51,7 +51,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
 
     private static Member member;
 
-    FragmentManager fm;
+    static FragmentManager fm;
     public static String mCurrentPhotoPath;
     static final int REQUEST_TAKE_PHOTO = 1;
     public static Bitmap bitMapToSend;
@@ -94,7 +94,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
         Log.e("TAG", t.toString());
     }
 
-    public void changeFragment(Fragment newFragment) {
+    public static void changeFragment(Fragment newFragment) {
         fm.beginTransaction().replace(R.id.fragment_container, newFragment).addToBackStack(null).commitAllowingStateLoss();
     }
 
@@ -159,7 +159,8 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
             }
         }
     }
-    //@@After photo has been made this happens;
+
+    //@After photo has been made this happens;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);

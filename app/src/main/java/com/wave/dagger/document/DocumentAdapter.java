@@ -1,6 +1,7 @@
 package com.wave.dagger.document;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wave.dagger.R;
+import com.wave.dagger.document.documentfeatures.DocumentUpdateFragment;
 import com.wave.dagger.model.Document;
 import com.wave.dagger.root.LoginActivity;
 import com.wave.dagger.service.FileImageService;
@@ -24,9 +26,10 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.MyView
     private ArrayList<Document> documentList;
     private ImageFromNetwork imageFromNetwork;
     private DocumentFragment documentFragment;
+    public static Document currentDocument;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public DocumentAdapter(ArrayList<Document> documentList,DocumentFragment documentFragment) {
+    public DocumentAdapter(ArrayList<Document> documentList, DocumentFragment documentFragment) {
         this.documentList = documentList;
         this.documentFragment = documentFragment;
 
@@ -68,7 +71,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.MyView
                 File checkFile = new File("/storage/emulated/0/Pictures/" + currentDoc.getPath().substring(27));
                 String path;
                 if (!checkFile.exists()) {
-                    path = FileImageService.saveToInternalStorage(currentDoc.getBitmap(),currentDoc.getPath().substring(27));
+                    path = FileImageService.saveToInternalStorage(currentDoc.getBitmap(), currentDoc.getPath().substring(27));
                 } else {
                     path = "/storage/emulated/0/Pictures/" + currentDoc.getPath().substring(27);
                 }
@@ -81,12 +84,27 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.MyView
 
             }
         });
-        holder.documentDeleteLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                documentFragment.deleteDocument(currentDoc);
-            }
-        });
+        if (LoginActivity.getMember().getId() == currentDoc.getOwnerId().getId()) {
+            holder.documentDeleteLink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    documentFragment.deleteDocument(currentDoc);
+                }
+            });
+            holder.documentUpdateLink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currentDocument = currentDoc;
+                    LoginActivity.changeFragment(new DocumentUpdateFragment());
+                }
+            });
+        } else {
+            holder.documentDeleteLink.setTextColor(Color.GRAY);
+            holder.documentDeleteLink.setEnabled(false);
+
+            holder.documentUpdateLink.setTextColor(Color.GRAY);
+            holder.documentUpdateLink.setEnabled(false);
+        }
 
         holder.documentSendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +112,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.MyView
                 documentFragment.dialogBuilder(currentDoc);
             }
         });
+
 
     }
 
@@ -103,13 +122,11 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.MyView
         return documentList.size();
     }
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView documentName, documentId, documentType, documentVisibility, documentDeleteLink, documentViewLink,
-        documentSendEmail;
+                documentSendEmail, documentUpdateLink;
         private ImageView documentImage;
 
         public MyViewHolder(RelativeLayout v) {
@@ -122,6 +139,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.MyView
             documentDeleteLink = v.findViewById(R.id.documentDelete);
             documentViewLink = v.findViewById(R.id.documentLink);
             documentSendEmail = v.findViewById(R.id.documentEmailLink);
+            documentUpdateLink = v.findViewById(R.id.documentUpdateLink);
         }
     }
 }

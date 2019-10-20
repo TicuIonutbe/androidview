@@ -1,6 +1,7 @@
 package com.wave.dagger.document;
 
-import com.wave.dagger.document.documentupload.UploadPhotoFragment;
+import com.wave.dagger.document.documentfeatures.DocumentUpdateFragment;
+import com.wave.dagger.document.documentfeatures.UploadPhotoFragment;
 import com.wave.dagger.model.Document;
 
 import java.util.ArrayList;
@@ -20,11 +21,15 @@ public interface DocumentMVP {
 
         void setUploadPhotoFragment(UploadPhotoFragment uploadPhotoFragment);
 
+        void setDocumentUpdateFragment(DocumentUpdateFragment documentUpdateFragment);
+
         void setDocumentFragment(DocumentFragment documentFragment);
 
         void deleteDocument(Document currentDoc);
 
         void getUpdatedDocumentListToMember();
+
+        void updateDocument(Document document);
     }
 
     interface Model {
@@ -52,7 +57,7 @@ public interface DocumentMVP {
 
         void uploadDocument(String fileName, String fileType, DocumentListener documentListener);
 
-        void updateDocument(Document document);
+        void updateDocument(Document document, DocumentListener documentListener);
 
     }
 }
