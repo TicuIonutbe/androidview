@@ -2,100 +2,109 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="390dp"
-    android:layout_height="300dp"
+    android:layout_height="395dp"
     android:layout_marginLeft="10dp"
     android:layout_marginTop="10dp"
     android:layout_marginRight="10dp"
     android:background="@color/colorPrimaryDark">
 
 
-    <include layout="@layout/document_name" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/documentId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="55dp"
-        android:text="documentId" />
+        <FrameLayout
+            android:layout_width="242dp"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/documentType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="21dp"
-        android:text="documentType" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="7dp">
 
-    <TextView
-        android:id="@+id/documentLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="11dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginBottom="4dp"
-        android:text="View this image full size!"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp" />
+                <include
+                    layout="@layout/document_name"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:gravity="center" />
 
-    <TextView
-        android:id="@+id/documentVisibility"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="137dp"
-        android:text="documentVisibility" />
+                <TextView
+                    android:id="@+id/documentId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:text="documentId" />
 
-    <ImageView
-        android:id="@+id/documentSmallImage"
-        android:layout_width="140dp"
-        android:layout_height="250dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="5dp"
-        app:srcCompat="@drawable/camera" />
+                <TextView
+                    android:id="@+id/documentType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:text="documentType" />
 
-    <TextView
-        android:id="@+id/documentDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="215dp"
-        android:text="Delete Document!!"
-        android:textColor="#FFEB3B"
-        android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/documentVisibility"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:text="documentVisibility" />
 
-    <TextView
-        android:id="@+id/documentEmailLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="86dp"
-        android:text="Send on Email"
-        android:textColor="#FFC107"
-        android:textSize="20sp" />
+                <Button
+                    android:id="@+id/documentDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:text="Delete Document!!"
+                    android:textColor="#F44336"
+                    android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/documentUpdateLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="180dp"
-        android:layout_marginTop="87dp"
-        android:text="Update"
-        android:textColor="#FFEB3B" />
+                <Button
+                    android:id="@+id/documentEmailLink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:text="Send on Email"
+                    android:textColor="#FFC107"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/documentUpdateLink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:text="Update"
+                    android:textColor="#FFEB3B" />
+
+                <Button
+                    android:id="@+id/documentLink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:text="VIEW THIS IMAGE"
+                    android:textColor="#2ED81B"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/documentSmallImage"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="5dp"
+            app:srcCompat="@drawable/camera" />
+    </LinearLayout>
+
 </RelativeLayout>

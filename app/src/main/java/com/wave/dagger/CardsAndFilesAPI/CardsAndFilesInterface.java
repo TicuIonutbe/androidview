@@ -66,7 +66,7 @@ public interface CardsAndFilesInterface {
         Call<String> addFriendship(@Header("Authorization") String authorization, @Header("friendEmail") String friendEmail);
 
         @GET("members/friendships")
-        Call<List<Friendship>> getListofFriends(@Header("Authorization") String authorization);
+        Call<List<Member>> getListofFriends(@Header("Authorization") String authorization);
 
         @PUT("members/friendships")
         Call<String> acceptOrDenyFriendship(@Header("Authorization") String authorization, @Header("friendId") int friendId, @Header("answer") int answer);

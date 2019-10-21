@@ -9,15 +9,19 @@ public class Member {
     @SerializedName("email")
     @Expose
     private String email;
+
     @SerializedName("firstName")
     @Expose
     private String firstName;
+
     @SerializedName("lastName")
     @Expose
     private String lastName;
+
     @SerializedName("documentList")
     @Expose
     private ArrayList<Document> documentList;
+
     @SerializedName("id")
     @Expose
     private int id;
@@ -25,6 +29,14 @@ public class Member {
     @SerializedName("password")
     @Expose()
     private String password;
+
+    @SerializedName("status")
+    @Expose()
+    private int status;
+
+    @SerializedName("isRequester")
+    @Expose()
+    private boolean isRequester;
 
     public Member() {
     }
@@ -90,5 +102,21 @@ public class Member {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public boolean isRequester() {
+        return isRequester;
+    }
+
+    public void setRequester(boolean requester) {
+        isRequester = requester;
     }
 }

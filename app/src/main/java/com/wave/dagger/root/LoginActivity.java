@@ -83,7 +83,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements AuthServic
         fragment.setPrefs(authorizationService.getPrefs());
 
         fm.beginTransaction().replace(R.id.fragment_container, (MainFragment) fragment).commitAllowingStateLoss();
-        Log.e("TAG", "Token is valid!: " + true);
+        Log.e("TAGG", "Token is valid!: " + true);
     }
 
     //Listens to AuthService Negative answer

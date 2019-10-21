@@ -17,7 +17,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
         AppModule.class,
         LoginModule.class,
         MainPageModule.class,
-        DocumentModule.class
+        DocumentModule.class,
+        FriendshipModule.class
 })
 public interface AppComponent extends AndroidInjector<BaseApp> {
 

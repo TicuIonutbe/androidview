@@ -3,6 +3,7 @@ package com.wave.dagger.di;
 import com.wave.dagger.document.DocumentFragment;
 import com.wave.dagger.document.documentfeatures.DocumentUpdateFragment;
 import com.wave.dagger.document.documentfeatures.UploadPhotoFragment;
+import com.wave.dagger.friendship.FriendshipFragment;
 import com.wave.dagger.root.LoginActivity;
 import com.wave.dagger.login.LoginFragment;
 import com.wave.dagger.mainpage.MainFragment;
@@ -34,5 +35,8 @@ abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector
     abstract DocumentUpdateFragment contributeDocumentUpdateFragment();
+
+    @ContributesAndroidInjector
+    abstract FriendshipFragment contributeFriendshipFragment();
 
 }
